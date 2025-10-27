@@ -1,5 +1,4 @@
 import { TypingAnimation } from "../magicui/typing-animation";
-import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import {
   Select,

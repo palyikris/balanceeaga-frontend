@@ -22,9 +22,7 @@ export default function TransactionTable({ data = [] }: DataTableProps) {
   const { isLoading: categoryLoading, data: categories } = useAllCategories();
   const setCategoryHook = useSetCategory();
   const queryClient = useQueryClient();
-  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
-    undefined
-  );
+  const [, setSelectedCategory] = useState<string | undefined>(undefined);
 
   const handleSaveCategory = (
     transactionId: string,

@@ -1,6 +1,5 @@
 import type { Transaction } from "@/types/transaction";
 import api from "../api";
-import dayjs from "dayjs";
 
 export async function fetchAllTransactions() {
   const date = new Date();

@@ -29,7 +29,12 @@ interface CategoryDialogProps {
       user_id: string;
     }
   >;
-  onSubmit: (values: Category) => void;
+  onSubmit: (values: {
+    id: string;
+    name: string;
+    type: "income" | "expense" | "transfer";
+    user_id: string;
+  }) => void;
   register: UseFormRegister<{
     id: string;
     name: string;

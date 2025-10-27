@@ -16,9 +16,7 @@ export default function Transactions() {
   // --- UI filters ---
   const [category, setCategory] = useState<string>("all");
   const [search, setSearch] = useState<string>("");
-  const [dateRange, setDateRange] = useState<{ from?: string; to?: string }>(
-    {}
-  );
+  const [dateRange] = useState<{ from?: string; to?: string }>({});
 
     const { isLoading: categoryLoading, data: categories } = useAllCategories();
 

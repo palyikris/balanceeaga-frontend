@@ -1,5 +1,4 @@
-// src/pages/CategoriesPage.tsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Plus } from "lucide-react";
@@ -43,7 +42,7 @@ export default function CategoriesPage() {
     },
   });
 
-  const onSubmit = (values: Category) => {
+  const onSubmit = (values: z.infer<typeof categorySchema>) => {
     console.log(editing);
     if (editing) {
       const payload: Omit<Category, "id" | "reference_count"> = {
@@ -83,7 +82,6 @@ export default function CategoriesPage() {
       },
     });
   };
-
   if (isLoading)
     return (
       <div className="flex justify-center p-10 text-offwhite">
