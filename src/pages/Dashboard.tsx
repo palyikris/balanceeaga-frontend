@@ -17,6 +17,8 @@ import { ClippedAreaChartForSpendingPatterns } from "@/components/ui/clipped-are
 import { useState } from "react";
 import UsefulnessModal from "@/components/dashboard/UsefulnessModal";
 import { Button } from "@/components/ui/button";
+import { useCategoryCoverage } from "@/hooks/dashboard/useCategoryCoverage";
+import { useAvgExpensePerCategory } from "@/hooks/dashboard/useAvgExpensePerCategory";
 
 export default function DashboardPage() {
   const { data: cashflow, isLoading: cashflowLoading } = useCashFlow();
@@ -30,6 +32,12 @@ export default function DashboardPage() {
     useCategoryExpenses();
   const { data: spendingPatterns, isLoading: spendingPatternsLoading } =
     useSpendingPatterns();
+  const { data: categoryCoverage, isLoading: categoryCoverageLoading } =
+    useCategoryCoverage();
+  const {
+    data: avgExpensePerCategory,
+    isLoading: avgExpensePerCategoryLoading,
+  } = useAvgExpensePerCategory();
 
   const [isUsefulnessModalOpen, setIsUsefulnessModalOpen] = useState(false);
   const [usefulnessModalTitle, setUsefulnessModalTitle] = useState("");
@@ -43,13 +51,18 @@ export default function DashboardPage() {
     balanceSummaryLoading ||
     monthlyBalanceLoading ||
     categoryExpensesLoading ||
-    spendingPatternsLoading
+    spendingPatternsLoading ||
+    categoryCoverageLoading ||
+    avgExpensePerCategoryLoading
   )
     return (
       <div className="flex w-full h-full flex-col mx-auto max-w-7xl mt-30 px-4 overflow-hidden pb-6 relative mb-8 space-y-6 justify-center items-center">
         <Spinner color="#00B3B3"></Spinner>
       </div>
     );
+
+  console.log("Category Coverage:", categoryCoverage);
+  console.log("Avg Expense Per Category:", avgExpensePerCategory);
 
   return (
     <div className="flex w-full flex-col mx-auto max-w-7xl mt-30 px-4 overflow-hidden pb-6 relative mb-8 space-y-6">
