@@ -133,7 +133,7 @@ export default function DashboardPage() {
               <div className="absolute top-6 right-6">
                 <Button
                   onClick={() => {
-                    setUsefulnessModalTitle("Kiadások kategóriák szerint");
+                    setUsefulnessModalTitle("Top kategória kiadások");
                     setUsefulnessModalDescription(
                       "Ez a szekció megmutatja, hogy mely kategóriákban költesz a legtöbbet. Ez segíthet azonosítani a fő kiadási forrásokat és lehetőségeket a költségcsökkentésre."
                     );
@@ -179,6 +179,54 @@ export default function DashboardPage() {
           <p className="text-offwhite/80">
             Nincs adat a havi bevételekről és kiadásokról.
           </p>
+        )}
+      </Card>
+      <Card className="flex flex-row items-stretch gap-4 bg-transparent p-0 border-none">
+        {merchants && merchants.length > 0 ? (
+          <>
+            <div className="flex-3 min-h-0 flex flex-col relative">
+              <div className="absolute top-6 right-6">
+                <Button
+                  onClick={() => {
+                    setUsefulnessModalTitle("Top kereskedők");
+                    setUsefulnessModalDescription(
+                      "Ez a szekció megmutatja, hogy mely kereskedőknél költesz a legtöbbet. Ez segíthet azonosítani a fő kiadási forrásokat és lehetőségeket a költségcsökkentésre."
+                    );
+                    setIsUsefulnessModalOpen(true);
+                  }}
+                  className="bg-tealblue/10 text-tealblue border border-tealblue/30 hover:bg-tealblue/20 cursor-pointer w-full"
+                >
+                  Miért hasznos ez?
+                </Button>
+              </div>
+              <div className="flex-1">
+                <TopMerchant merchants={merchants} />
+              </div>
+            </div>
+            <div className="flex-2 min-h-0 flex flex-col relative">
+              <div className="absolute top-6 right-6">
+                <Button
+                  onClick={() => {
+                    setUsefulnessModalTitle("Top kategória kiadások");
+                    setUsefulnessModalDescription(
+                      "Ez a szekció megmutatja, hogy mely kategóriákban költesz a legtöbbet. Ez segíthet azonosítani a fő kiadási forrásokat és lehetőségeket a költségcsökkentésre."
+                    );
+                    setIsUsefulnessModalOpen(true);
+                  }}
+                  className="bg-tealblue/10 text-tealblue border border-tealblue/30 hover:bg-tealblue/20 cursor-pointer w-full"
+                >
+                  Miért hasznos ez?
+                </Button>
+              </div>
+              <div className="flex-1">
+                <CategoryExpenses categoryExpenses={categoryExpenses || []} />
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <p>Nem sikerült az adatokat megjeleníteni.</p>
+          </div>
         )}
       </Card>
       <Card className="bg-graphite/50 p-6 relative">

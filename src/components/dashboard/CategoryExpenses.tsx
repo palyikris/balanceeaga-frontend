@@ -16,7 +16,7 @@ export default function CategoryExpenses(props: CategoryExpenses) {
   return (
     <Card className="bg-graphite/50 p-6 w-full h-full">
       <h2 className="text-xl font-bold mb-3 text-offwhite/80">
-        Kiadások kategóriák szerint
+        Top kategória kiadások
       </h2>
       <RoundedPieChart chartData={categoryExpenses}></RoundedPieChart>
       {/* <ul className="divide-y divide-tealblue/30">
