@@ -116,15 +116,17 @@ function ChartTooltipContent({
   color,
   nameKey,
   labelKey,
+  needFt = true,
 }: React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
   React.ComponentProps<"div"> & {
-    hideLabel?: boolean
-    hideIndicator?: boolean
-    indicator?: "line" | "dot" | "dashed"
-    nameKey?: string
-    labelKey?: string
+    hideLabel?: boolean;
+    hideIndicator?: boolean;
+    indicator?: "line" | "dot" | "dashed";
+    nameKey?: string;
+    labelKey?: string;
+    needFt?: boolean;
   }) {
-  const { config } = useChart()
+  const { config } = useChart();
 
   const tooltipLabel = React.useMemo(() => {
     if (hideLabel || !payload?.length) {
@@ -234,7 +236,7 @@ function ChartTooltipContent({
                       </div>
                       {item.value && (
                         <span className="text-offwhite/60 font-mono font-medium tabular-nums">
-                          {item.value.toLocaleString() + " Ft"}
+                          {item.value.toLocaleString() + (needFt ? " Ft" : "")}
                         </span>
                       )}
                     </div>

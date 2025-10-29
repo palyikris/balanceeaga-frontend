@@ -2,21 +2,16 @@
 
 import { Pie, PieChart } from "recharts";
 
-import {
-  Card,
-  CardContent,
-  CardHeader
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
+import type { CategoryCoverage } from "@/api/dashboard/fetchCategoryCoverage";
 
 export const description = "A pie chart with a label list";
-
 
 const chartConfig = {
   visitors: {
@@ -44,13 +39,8 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-interface RoundedPieChartProps {
-  chartData: {
-    category?: string;
-    name?: string;
-    amount: number;
-    fill?: string;
-  }[];
+interface CoveragePieChartProps {
+  data: CategoryCoverage
 }
 
 const colors = [
@@ -62,22 +52,23 @@ const colors = [
   "#cd9747",
 ];
 
-export function RoundedPieChart(props: RoundedPieChartProps) {
+export function CoveragePieChart(props: CoveragePieChartProps) {
+  const { data } = props;
 
-  const { chartData } = props;
+  const randomIndex = Math.floor(Math.random() * colors.length);
 
-  const randomColors: string[] = [];
-
-  chartData.forEach((entry) => {
-    let randomColor = colors[Math.floor(Math.random() * colors.length)];
-    while (randomColors.includes(randomColor)) {
-      randomColor = colors[Math.floor(Math.random() * colors.length)];
-    }
-    randomColors.push(randomColor);
-    entry.fill = randomColor;
-    entry.name = entry.name || entry.category || "N/A";
-  });
-
+  const chartData = [
+    {
+      name: "Lefedett tranzakciók",
+      amount: data.categorized_transactions,
+      fill: colors[randomIndex],
+    },
+    {
+      name: "Nem lefedett tranzakciók",
+      amount: data.total_transactions - data.categorized_transactions,
+      fill: colors[(randomIndex + 1) % colors.length],
+    },
+  ]
 
   return (
     <Card className="flex flex-col bg-transparent border-none p-0">
@@ -86,7 +77,7 @@ export function RoundedPieChart(props: RoundedPieChartProps) {
           <ul className="grid grid-cols-2 gap-x-4 gap-y-0 m-0 p-0 list-none">
             {chartData.map((entry, index) => (
               <li
-                key={entry.name ?? entry.category ?? index}
+                key={entry.name ?? index}
                 className="flex items-center justify-between gap-2 rounded-md px-2 py-1 hover:bg-surface/5"
                 role="listitem"
               >
@@ -98,14 +89,11 @@ export function RoundedPieChart(props: RoundedPieChartProps) {
                   />
                   <span
                     className="truncate text-sm text-offwhite/90"
-                    title={entry.name ?? entry.category}
+                    title={entry.name}
                   >
-                    {entry.name ?? entry.category}
+                    {entry.name}
                   </span>
                 </div>
-                {/* <span className="ml-2 text-sm font-semibold text-offwhite tabular-nums">
-                  {entry.amount.toLocaleString()} Ft
-                </span> */}
               </li>
             ))}
           </ul>
@@ -117,9 +105,7 @@ export function RoundedPieChart(props: RoundedPieChartProps) {
           className="[&_.recharts-text]:fill-background mx-auto aspect-square max-h-[250px]"
         >
           <PieChart>
-            <ChartTooltip
-              content={<ChartTooltipContent/>}
-            />
+            <ChartTooltip content={<ChartTooltipContent needFt={false} />} />
             <Pie
               data={chartData}
               innerRadius={30}

@@ -2,7 +2,7 @@ import api from "../api";
 
 export interface CategoryCoverage {
   total_transactions: number;
-  covered_transactions: number;
+  categorized_transactions: number;
   coverage_percentage: number;
 }
 

@@ -19,16 +19,6 @@ export default function CategoryExpenses(props: CategoryExpenses) {
         Top kategória kiadások
       </h2>
       <RoundedPieChart chartData={categoryExpenses}></RoundedPieChart>
-      {/* <ul className="divide-y divide-tealblue/30">
-        {categoryExpenses?.map((m) => (
-          <li key={m.name} className="flex justify-between py-2">
-            <span className="text-offwhite/50">{m.name}</span>
-            <span className="text-limeneon">
-              {m.amount.toLocaleString()} Ft
-            </span>
-          </li>
-        ))}
-      </ul> */}
     </Card>
   );
 }

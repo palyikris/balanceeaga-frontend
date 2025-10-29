@@ -19,6 +19,8 @@ import UsefulnessModal from "@/components/dashboard/UsefulnessModal";
 import { Button } from "@/components/ui/button";
 import { useCategoryCoverage } from "@/hooks/dashboard/useCategoryCoverage";
 import { useAvgExpensePerCategory } from "@/hooks/dashboard/useAvgExpensePerCategory";
+import AvgExpensePerCategory from "./../components/dashboard/AvgExpensePerCategory";
+import CategoryCoverage from "@/components/dashboard/CategoryCoverage";
 
 export default function DashboardPage() {
   const { data: cashflow, isLoading: cashflowLoading } = useCashFlow();
@@ -62,7 +64,6 @@ export default function DashboardPage() {
     );
 
   console.log("Category Coverage:", categoryCoverage);
-  console.log("Avg Expense Per Category:", avgExpensePerCategory);
 
   return (
     <div className="flex w-full flex-col mx-auto max-w-7xl mt-30 px-4 overflow-hidden pb-6 relative mb-8 space-y-6">
@@ -182,15 +183,17 @@ export default function DashboardPage() {
         )}
       </Card>
       <Card className="flex flex-row items-stretch gap-4 bg-transparent p-0 border-none">
-        {merchants && merchants.length > 0 ? (
+        {avgExpensePerCategory &&
+        avgExpensePerCategory.length > 0 &&
+        categoryCoverage ? (
           <>
             <div className="flex-3 min-h-0 flex flex-col relative">
               <div className="absolute top-6 right-6">
                 <Button
                   onClick={() => {
-                    setUsefulnessModalTitle("Top kereskedők");
+                    setUsefulnessModalTitle("Kategóriánkénti átlagos kiadás");
                     setUsefulnessModalDescription(
-                      "Ez a szekció megmutatja, hogy mely kereskedőknél költesz a legtöbbet. Ez segíthet azonosítani a fő kiadási forrásokat és lehetőségeket a költségcsökkentésre."
+                      "Ez a szekció átlagos kiadásaidat mutatja kategóriánként, segítve ezzel a pénzügyi tervezést és a költségvetés optimalizálását."
                     );
                     setIsUsefulnessModalOpen(true);
                   }}
@@ -200,16 +203,16 @@ export default function DashboardPage() {
                 </Button>
               </div>
               <div className="flex-1">
-                <TopMerchant merchants={merchants} />
+                <AvgExpensePerCategory expenses={avgExpensePerCategory || []} />
               </div>
             </div>
             <div className="flex-2 min-h-0 flex flex-col relative">
               <div className="absolute top-6 right-6">
                 <Button
                   onClick={() => {
-                    setUsefulnessModalTitle("Top kategória kiadások");
+                    setUsefulnessModalTitle("Kategória lefedettség");
                     setUsefulnessModalDescription(
-                      "Ez a szekció megmutatja, hogy mely kategóriákban költesz a legtöbbet. Ez segíthet azonosítani a fő kiadási forrásokat és lehetőségeket a költségcsökkentésre."
+                      "Ez a szekció megmutatja, hogy a tranzakcióid mekkora része van megfelelően kategorizálva. Ez segít javítani a pénzügyi áttekintést, a költségvetés kezelését és megmutatja, mennyire használhatóak a megadott szabályok, kategóriák."
                     );
                     setIsUsefulnessModalOpen(true);
                   }}
@@ -219,7 +222,7 @@ export default function DashboardPage() {
                 </Button>
               </div>
               <div className="flex-1">
-                <CategoryExpenses categoryExpenses={categoryExpenses || []} />
+                <CategoryCoverage categoryCoverage={categoryCoverage} />
               </div>
             </div>
           </>
