@@ -30,8 +30,13 @@ export default function Home() {
   }, [navigate]);
 
   return (
-    <div className="mx-auto max-w-6xl mt-16 max-h-[90vh]">
-      <BlurFade delay={0.1} direction="left" inView className="pt-15">
+    <div className="mt-16 max-w-7xl mx-auto px-4 flex flex-col gap-10">
+      <BlurFade
+        delay={0.1}
+        direction="left"
+        inView
+        className="pt-15 flex flex-col gap-6 justify-center items-center"
+      >
         <div className="rounded-2xl p-8 border border-offwhite/15 bg-graphite/60">
           <TypingAnimation
             delay={0.12}

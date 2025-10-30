@@ -16,6 +16,7 @@ import TransactionDetailPage from "./pages/TransactionDetail";
 import CategoriesPage from "./pages/Category";
 import RulesPage from "./pages/Rules";
 import DashboardPage from "./pages/Dashboard";
+import Reports from "./pages/Reports";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { path: "transactions", element: <Transactions /> },
       { path: "transactions/:id", element: <TransactionDetailPage /> },
       { path: "dashboard", element: <DashboardPage></DashboardPage> },
+      { path: "reports", element: <Reports></Reports> },
       {
         path: "/categories",
         element: <CategoriesPage />,

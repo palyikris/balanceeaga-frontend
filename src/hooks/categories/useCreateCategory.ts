@@ -14,11 +14,11 @@ export const useCreateCategory = () => {
     retryDelay: 10000,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
-      notify.success("Category created successfully.");
+      notify.success("Kategória létrehozva.");
     },
     onError: (error) => {
       console.error("Error creating category:", error);
-      notify.error("Failed to create category. Please try again.");
+      notify.error("Kategória létrehozása sikertelen. Kérjük, próbálja újra.");
     },
   });
 }
